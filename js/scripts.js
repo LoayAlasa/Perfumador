@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    let cart = [];
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     function loadPerfumes() {
         $.ajax({
@@ -28,7 +28,7 @@ $(document).ready(function() {
                             <div class="overlay-content">
                                 <h3>${perfume.name}</h3>
                                 <p class="price">${perfume.price}</p>
-                                <button class="add-to-cart-btn">Add to Cart</button>
+                                <button class="add-to-cart-btn" data-name="${perfume.name}" data-price="${perfume.price}" data-image="${perfume.image}">Add to Cart</button>
                             </div>
                         </div>
                     </div>
@@ -38,117 +38,213 @@ $(document).ready(function() {
         });
     }
 
-    loadPerfumes();
-
-    $('#search-bar').on('input', function() {
-        const query = $(this).val().toLowerCase();
-        $('.perfume-item').filter(function() {
-            $(this).toggle($(this).find('h3').text().toLowerCase().indexOf(query) > -1)
-        });
-    });
-
     function updateCartCount() {
         $('#cart-count').text(cart.length);
     }
 
-    $(document).on('click', '.add-to-cart-btn', function() {
-        const perfumeName = $(this).closest('.perfume-item').find('h3').text();
-        cart.push(perfumeName);
-        updateCartCount();
-        showCartModal(`"${perfumeName}" has been added to your cart!`);
-    });
-
-    const modal = $('<div id="cart-modal" class="modal"></div>');
-    const modalContent = `
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <p id="cart-message"></p>
-        </div>
-    `;
-    modal.html(modalContent);
-    $('body').append(modal);
-
-    function showCartModal(message) {
-        $('#cart-message').text(message);
-        $('#cart-modal').fadeIn();
+    function saveCart() {
+        localStorage.setItem('cart', JSON.stringify(cart));
     }
 
-    $(document).on('click', '.close-btn', function() {
-        $('#cart-modal').fadeOut();
-    });
-
-    $(window).on('click', function(event) {
-        if ($(event.target).is('#cart-modal')) {
-            $('#cart-modal').fadeOut();
-        }
-    });
-
-    $('#contact-form').on('submit', function(event) {
-        event.preventDefault();
-        $('#form-message').empty();
-        let isValid = true;
-        $(this).find('input, textarea, select').each(function() {
-            if (!this.checkValidity()) {
-                isValid = false;
-                $(this).addClass('input-error');
-            } else {
-                $(this).removeClass('input-error');
-            }
+    function showNotification(message, type = 'success', position = 'top-right') {
+        const notification = $(`
+            <div class="notification ${type} ${position}">
+                <p>${message}</p>
+            </div>
+        `);
+        $('body').append(notification);
+        notification.fadeIn(400).delay(2000).fadeOut(400, function() {
+            $(this).remove();
         });
-        if (isValid) {
-            $('#form-message').html('<p class="success">Thank you for contacting us! We will get back to you shortly.</p>');
-            $(this)[0].reset();
-        } else {
-            $('#form-message').html('<p class="error">Please fill out all required fields correctly.</p>');
-        }
-    });
-
-    $('#subscribe-form').on('submit', function(event) {
-        event.preventDefault();
-        $('#subscribe-message').empty();
-        let isValid = true;
-        const emailInput = $('#subscribe-email');
-        if (!emailInput.val()) {
-            isValid = false;
-            emailInput.addClass('input-error');
-        } else if (!validateEmail(emailInput.val())) {
-            isValid = false;
-            emailInput.addClass('input-error');
-        } else {
-            emailInput.removeClass('input-error');
-        }
-        if (isValid) {
-            $('#subscribe-message').html('<p class="success">Thank you for subscribing! Stay tuned for exclusive offers.</p>');
-            $(this)[0].reset();
-        } else {
-            $('#subscribe-message').html('<p class="error">Please enter a valid email address.</p>');
-        }
-    });
-
-    function validateEmail(email) {
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\\.,;:\s@"]+\.)+[^<>()[\]\\.,;:\s@"]{2,})$/i;
-        return re.test(String(email).toLowerCase());
     }
 
-    // Page Transition Logic
-    $('a[href^="http"]').on('click', function(event) {
-        // External links, ignore
-        return;
+    function addToCart(perfume) {
+        cart.push(perfume);
+        saveCart();
+        updateCartCount();
+        showNotification(`${perfume.name} has been added to your cart!`, 'success');
+    }
+
+    $(document).on('click', '.add-to-cart-btn', function() {
+        const perfume = {
+            name: $(this).data('name'),
+            price: $(this).data('price'),
+            image: $(this).data('image'),
+            quantity: 1
+        };
+        addToCart(perfume);
     });
 
-    $('a[href^="/"], a[href^="./"], a[href^="../"], a[href$=".html"]').on('click', function(event) {
+    function loadCart() {
+        const container = $('#cart-items');
+        const summary = $('#cart-summary');
+        const emptyMessage = $('#empty-cart-message');
+        container.empty();
+        
+        if (cart.length === 0) {
+            emptyMessage.show();
+            summary.hide();
+        } else {
+            emptyMessage.hide();
+            summary.show();
+            let totalItems = 0;
+            let subtotal = 0;
+
+            cart.forEach((item, index) => {
+                totalItems++;
+                subtotal += parseFloat(item.price.replace('$', '')) * item.quantity;
+                const cartItem = `
+                    <tr style="background-color: #1a1a1a; color: #f0f0f0;">
+                        <td><img src="${item.image}" alt="${item.name}" width="50" style="border-radius: 5px;"></td>
+                        <td>${item.name}</td>
+                        <td>${item.price}</td>
+                        <td><input type="number" class="quantity" data-index="${index}" value="${item.quantity}" min="1" style="background-color: #333; color: #f0f0f0; border: 1px solid #555; padding: 5px; border-radius: 5px;"></td>
+                        <td>$${(item.quantity * parseFloat(item.price.replace('$', ''))).toFixed(2)}</td>
+                        <td><button class="remove-item-btn" data-index="${index}" style="background-color: #d9534f; color: white; border: none; padding: 5px 10px; border-radius: 5px;">🗑️</button></td>
+                    </tr>
+                `;
+                container.append(cartItem);
+            });
+
+            $('#subtotal').text(`$${subtotal.toFixed(2)}`);
+            $('#total').text(`$${(subtotal + 10).toFixed(2)}`); // $10 shipping
+        }
+    }
+
+    $(document).on('click', '.quantity', function() {
+        const index = $(this).data('index');
+        const newQuantity = parseInt($(this).val());
+        cart[index].quantity = newQuantity;
+        saveCart();
+        loadCart();
+    });
+
+    $(document).on('click', '.remove-item-btn', function() {
+        const index = $(this).data('index');
+        const removedItem = cart[index];
+        cart.splice(index, 1);
+        saveCart();
+        loadCart();
+        updateCartCount();
+        showNotification(`${removedItem.name} has been removed from your cart!`, 'error');
+    });
+
+    $('#checkout-btn').click(function() {
+        const modal = $(`
+            <div class="confirmation-modal">
+                <div class="modal-content">
+                    <h3>Are you sure you want to proceed with the purchase?</h3>
+                    <div class="modal-actions">
+                        <button class="modal-confirm-btn">Yes</button>
+                        <button class="modal-cancel-btn">No</button>
+                    </div>
+                </div>
+            </div>
+        `);
+
+        $('body').append(modal);
+        $('.confirmation-modal').fadeIn(400);
+
+        $('.modal-confirm-btn').click(function() {
+            showNotification('Thank you! Your purchase was successful.', 'success', 'bottom-right');
+            cart = [];
+            saveCart();
+            loadCart();
+            updateCartCount();
+            modal.fadeOut(400, function() {
+                $(this).remove();
+            });
+        });
+
+        $('.modal-cancel-btn').click(function() {
+            modal.fadeOut(400, function() {
+                $(this).remove();
+            });
+        });
+    });
+
+    if (window.location.pathname.includes('cart.html')) {
+        loadCart();
+    }
+
+    loadPerfumes();
+    updateCartCount();
+
+    $(".cart-link").on("click", function(event) {
         event.preventDefault();
-        const href = $(this).attr('href');
-        $('body').addClass('fade-out');
-        setTimeout(function() {
-            window.location.href = href;
-        }, 500); // Match the CSS transition duration
+        window.location.href = "cart.html";
     });
 
-    // Apply fade-in on page load
-    $('body').addClass('fade-in');
-    setTimeout(function() {
-        $('body').removeClass('fade-in');
-        $('#page-transition').css('opacity', '1');
-    }, 500); // Match the CSS transition duration
+    $('head').append(`
+        <style>
+            .notification {
+                position: fixed;
+                padding: 15px 20px;
+                border-radius: 5px;
+                color: #fff;
+                font-size: 16px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+                display: none;
+            }
+            .notification.success {
+                background-color: #28a745;
+            }
+            .notification.error {
+                background-color: #dc3545;
+            }
+            .notification.top-right {
+                top: 20px;
+                right: 20px;
+            }
+            .notification.bottom-right {
+                bottom: 20px;
+                right: 20px;
+            }
+            .confirmation-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 2000;
+            }
+            .modal-content {
+                background: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                text-align: center;
+                width: 90%;
+                max-width: 400px;
+            }
+            .modal-content h3 {
+                margin-bottom: 20px;
+                font-size: 18px;
+            }
+            .modal-actions {
+                display: flex;
+                justify-content: space-around;
+            }
+            .modal-confirm-btn,
+            .modal-cancel-btn {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 14px;
+            }
+            .modal-confirm-btn {
+                background-color: #28a745;
+                color: #fff;
+            }
+            .modal-cancel-btn {
+                background-color: #dc3545;
+                color: #fff;
+            }
+        </style>
+    `);
 });
