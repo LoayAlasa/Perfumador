@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfumador - Home</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display&display=swap" rel="stylesheet">
+    <meta name="description" content="Discover exquisite fragrances at Perfumador. Explore our wide range of premium perfumes tailored for every occasion.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div id="page-transition">
+        <header>
+            <div class="container">
+                <h1>Perfumador</h1>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </nav>
+                <div id="cart">
+                    <a href="cart.html">
+                        <img src="images/cart-icon.png" alt="Cart" width="30">
+                        <span id="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <section id="hero">
+            <video autoplay muted loop playsinline class="hero-video">
+                <source src="videos/hero-video.mp4" type="video/mp4">
+                <source src="videos/hero-video.webm" type="video/webm">
+                Your browser does not support the video tag.
+            </video>
+            <div class="hero-content">
+                <h2>Embrace the Essence of Elegance</h2>
+                <p>Discover your signature scent with our exclusive collection of premium perfumes.</p>
+                <a href="products.html" class="btn-primary">Shop Now</a>
+            </div>
+        </section>
+
+        <section id="featured-perfumes">
+            <div class="container">
+                <h2>Featured Perfumes</h2>
+                <div class="perfume-grid" id="perfume-container">
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials">
+            <div class="container">
+                <h2>What Our Customers Say</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial-item">
+                        <p>"Perfumador offers the most exquisite fragrances. I found my perfect scent!"</p>
+                        <h4>- James M.</h4>
+                    </div>
+                    <div class="testimonial-item">
+                        <p>"Exceptional quality and fantastic customer service. Highly recommend!"</p>
+                        <h4>- Robert L.</h4>
+                    </div>
+                    <div class="testimonial-item">
+                        <p>"A delightful shopping experience with a wide range of premium perfumes."</p>
+                        <h4>- William S.</h4>
+                    </div>
+                    <div class="testimonial-item">
+                        <p>"Their selection is unparalleled. I've never been disappointed with a purchase."</p>
+                        <h4>- David K.</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta">
+            <div class="container">
+                <h2>Join Our Exclusive Fragrance Club</h2>
+                <p>Subscribe to our newsletter to receive VIP offers and the latest arrivals.</p>
+                <form id="subscribe-form" novalidate>
+                    <input type="email" id="subscribe-email" name="email" placeholder="Enter your email" required aria-required="true">
+                    <button type="submit" class="btn-primary">Subscribe</button>
+                </form>
+                <div id="subscribe-message"></div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>Contact us: support@perfumador.com | Follow us on 
+            <a href="#">Facebook</a>, 
+            <a href="#">Instagram</a>
+        </p>
+    </footer>
+    
+    <div id="transition-overlay"></div>
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <p id="cart-message"></p>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>

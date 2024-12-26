@@ -1,0 +1,62 @@
+[
+    {
+        "name": "Black Orchid",
+        "price": "$120.00",
+        "image": "images/perfume1.jpg"
+    },
+    {
+        "name": "Santal 33",
+        "price": "$150.00",
+        "image": "images/perfume2.jpg"
+    },
+    {
+        "name": "Nuit d'Issey",
+        "price": "$130.00",
+        "image": "images/perfume3.jpg"
+    },
+    {
+        "name": "Bleu de Chanel",
+        "price": "$140.00",
+        "image": "images/perfume4.jpg"
+    },
+    {
+        "name": "Dior Sauvage",
+        "price": "$160.00",
+        "image": "images/perfume5.jpg"
+    },
+    {
+        "name": "Tom Ford Noir",
+        "price": "$170.00",
+        "image": "images/perfume6.jpg"
+    },
+    {
+        "name": "Aventus",
+        "price": "$200.00",
+        "image": "images/perfume7.jpg"
+    },
+    {
+        "name": "Pure Malt",
+        "price": "$180.00",
+        "image": "images/perfume8.jpg"
+    },
+    {
+        "name": "Creed Green Irish Tweed",
+        "price": "$210.00",
+        "image": "images/perfume9.jpg"
+    },
+    {
+        "name": "Amouage Reflection",
+        "price": "$220.00",
+        "image": "images/perfume10.jpg"
+    },
+    {
+        "name": "Yves Saint Laurent La Nuit",
+        "price": "$190.00",
+        "image": "images/perfume11.jpg"
+    },
+    {
+        "name": "Versace Eros",
+        "price": "$175.00",
+        "image": "images/perfume12.jpg"
+    }
+]

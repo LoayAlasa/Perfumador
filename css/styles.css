@@ -1,0 +1,658 @@
+:root {
+    --primary-color: #1c1c1c;
+    --primary-hover: #b4975a;
+    --secondary-color: #ffffff;
+    --background-color: #2c2c2c;
+    --text-color: #e0e0e0;
+    --error-color: #e74c3c;
+    --success-color: #27ae60;
+    --font-family-body: 'Montserrat', sans-serif;
+    --font-family-headings: 'Playfair Display', serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-body);
+    line-height: 1.6;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+a {
+    color: var(--primary-hover);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    background-color: var(--primary-color);
+    padding: 20px 0;
+    border-bottom: 1px solid #444;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header h1 {
+    font-size: 28px;
+    color: var(--secondary-color);
+    font-family: var(--font-family-headings);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+nav ul li a {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#cart {
+    position: relative;
+}
+
+#cart img {
+    vertical-align: middle;
+}
+
+#cart-count {
+    background-color: var(--primary-hover);
+    color: var(--secondary-color);
+    border-radius: 50%;
+    padding: 4px 8px;
+    font-size: 12px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+
+#hero {
+    position: relative;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    background-size: cover;
+    transition: 1s opacity;
+}
+
+#hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(28, 28, 28, 0.5);
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    color: var(--secondary-color);
+    padding: 20px;
+}
+
+.hero-content h2 {
+    font-size: 42px;
+    margin-bottom: 15px;
+    font-family: var(--font-family-headings);
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.btn-primary {
+    padding: 14px 35px;
+    background-color: var(--primary-hover);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+#featured-perfumes, #testimonials, #cta {
+    padding: 60px 0;
+}
+
+#featured-perfumes h2, #testimonials h2, #cta h2 {
+    text-align: center;
+    color: var(--primary-hover);
+    margin-bottom: 40px;
+    font-size: 32px;
+    font-family: var(--font-family-headings);
+}
+
+.perfume-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+}
+
+.perfume-item {
+    background-color: var(--background-color);
+    padding: 20px;
+    border: 1px solid #444;
+    border-radius: 10px;
+    text-align: center;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.perfume-item:hover {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+    transform: translateY(-10px);
+}
+
+.image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.5s ease;
+    display: block;
+}
+
+.perfume-item:hover .image-container img {
+    transform: scale(1.1);
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(28, 28, 28, 0.8);
+    color: var(--secondary-color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.perfume-item:hover .overlay {
+    opacity: 1;
+}
+
+.overlay-content h3 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-family: var(--font-family-headings);
+}
+
+.overlay-content p.price {
+    font-size: 18px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.add-to-cart-btn {
+    position: relative;
+    overflow: hidden;
+    padding: 10px 20px;
+    background-color: var(--primary-hover);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.add-to-cart-btn::after {
+    content: '';
+    position: absolute;
+    left: -50%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: skewX(-45deg);
+    transition: all 0.3s ease;
+}
+
+.add-to-cart-btn:hover::after {
+    left: 150%;
+}
+
+#testimonials {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.testimonial-item {
+    background-color: var(--background-color);
+    padding: 20px;
+    border-left: 5px solid var(--primary-hover);
+    border-radius: 5px;
+    font-style: italic;
+    position: relative;
+}
+
+.testimonial-item::before, .testimonial-item::after {
+    content: '"';
+    font-size: 30px;
+    color: var(--primary-hover);
+    position: absolute;
+}
+
+.testimonial-item::before {
+    top: -10px;
+    left: 10px;
+}
+
+.testimonial-item::after {
+    bottom: -10px;
+    right: 10px;
+}
+
+.testimonial-item h4 {
+    margin-top: 15px;
+    font-size: 16px;
+    color: var(--text-color);
+    font-weight: 600;
+    font-family: var(--font-family-headings);
+}
+
+#cta {
+    background-color: var(--primary-hover);
+    color: var(--primary-color);
+    text-align: center;
+}
+
+#cta h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-family: var(--font-family-headings);
+}
+
+#cta p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+#subscribe-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+#subscribe-form input[type="email"] {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+}
+
+.btn-primary {
+    padding: 12px 30px;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    color: var(--secondary-color);
+}
+
+footer {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 20px 0;
+    border-top: 1px solid #444;
+    text-align: center;
+}
+
+footer p {
+    font-size: 14px;
+}
+
+footer a {
+    color: var(--primary-hover);
+    text-decoration: none;
+    margin: 0 5px;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--secondary-color);
+}
+
+.input-error {
+    border-color: var(--error-color);
+    background-color: #fceae9;
+}
+
+#form-message p.success, #subscribe-message p.success {
+    color: var(--success-color);
+    background-color: #e8f8f5;
+    padding: 15px;
+    border: 1px solid var(--success-color);
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+#form-message p.error, #subscribe-message p.error {
+    color: var(--error-color);
+    background-color: #fdecea;
+    padding: 15px;
+    border: 1px solid var(--error-color);
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+@media (max-width: 992px) {
+    header .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    #cart {
+        margin-top: 10px;
+    }
+
+    .perfume-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .testimonial-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    #subscribe-form {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #subscribe-form input[type="email"] {
+        width: 100%;
+    }
+
+    .btn-primary {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 22px;
+    }
+
+    nav ul li a {
+        font-size: 14px;
+    }
+
+    main {
+        padding: 20px 0;
+    }
+
+    #featured-perfumes h2, #testimonials h2, #cta h2 {
+        font-size: 24px;
+    }
+
+    .perfume-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .testimonial-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #subscribe-form {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #subscribe-form input[type="email"] {
+        width: 100%;
+    }
+
+    .btn-primary {
+        width: 100%;
+    }
+}
+
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 2px solid var(--primary-hover);
+    outline-offset: 2px;
+}
+
+.search-container {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+#search-bar {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    background-color: #3a3a3a;
+    color: var(--secondary-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#search-bar::placeholder {
+    color: #bbbbbb;
+}
+
+#search-bar:focus {
+    background-color: #4a4a4a;
+}
+
+@media (max-width: 600px) {
+    .search-container {
+        padding: 0 10px;
+    }
+
+    #search-bar {
+        max-width: 100%;
+    }
+}
+
+#contact-us {
+    background-color: #3a3a3a;
+    padding: 60px 0;
+}
+
+#contact-us h2 {
+    color: var(--primary-hover);
+    margin-bottom: 40px;
+    font-size: 32px;
+    font-family: var(--font-family-headings);
+    text-align: center;
+}
+
+#contact-form {
+    background-color: #2c2c2c;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#contact-form .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+#contact-form .form-group label {
+    font-size: 16px;
+    color: var(--secondary-color);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+#contact-form .form-group input,
+#contact-form .form-group textarea,
+#contact-form .form-group select {
+    padding: 12px 20px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #4a4a4a;
+    color: var(--secondary-color);
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#contact-form .form-group input::placeholder,
+#contact-form .form-group textarea::placeholder {
+    color: #bbbbbb;
+}
+
+#contact-form .form-group input:focus,
+#contact-form .form-group textarea:focus,
+#contact-form .form-group select:focus {
+    border-color: var(--primary-hover);
+    box-shadow: 0 0 5px var(--primary-hover);
+    background-color: #555;
+}
+
+.btn-submit {
+    padding: 15px 40px;
+    background-color: var(--primary-hover);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+.btn-submit:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+@media (max-width: 992px) {
+    #contact-form {
+        padding: 30px;
+    }
+
+    #contact-form .form-group {
+        margin-bottom: 20px;
+    }
+
+    .btn-submit {
+        padding: 12px 30px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    #contact-form {
+        padding: 20px;
+    }
+
+    #contact-form .form-group {
+        margin-bottom: 15px;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 12px 0;
+        font-size: 16px;
+    }
+}
+

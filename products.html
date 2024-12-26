@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfumador - Products</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display&display=swap" rel="stylesheet">
+    <meta name="description" content="Explore our extensive range of premium perfumes at Perfumador . Find the perfect fragrance for every occasion.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Perfumador </h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div id="cart">
+                <a href="#">
+                    <img src="images/cart-icon.png" alt="Cart" width="30">
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section id="product-list">
+        <div class="container">
+            <h2>Our Perfumes</h2>
+            <div class="search-container">
+                <input type="text" id="search-bar" placeholder="Search perfumes..." aria-label="Search perfumes">
+            </div>
+            <div class="perfume-grid" id="perfume-container">
+                <div class="perfume-item">
+                    <div class="image-container">
+                        <img src="images/perfume1.jpg" alt="Black Orchid" loading="lazy">
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Black Orchid</h3>
+                                <p class="price">$120.00</p>
+                                <button class="add-to-cart-btn">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Additional perfume items will be loaded dynamically via scripts.js -->
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Contact us: support@perfumeparadise.com | Follow us on 
+            <a href="#">Facebook</a>, 
+            <a href="#">Instagram</a>
+        </p>
+    </footer>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>
