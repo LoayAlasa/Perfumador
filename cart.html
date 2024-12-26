@@ -2,67 +2,58 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Perfumador - Your Cart</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display&display=swap" rel="stylesheet">
-    <meta name="description" content="Review the items in your Perfumador cart. Proceed to checkout or continue shopping for your favorite fragrances.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Perfumador</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div id="page-transition">
-        <header>
-            <div class="container">
-                <h1>Perfumador</h1>
-                <nav>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="products.html">Products</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                    </ul>
-                </nav>
-                <div id="cart">
-                    <a href="cart.html">
-                        <img src="images/cart-icon.png" alt="Cart" width="30">
-                        <span id="cart-count">0</span>
-                    </a>
-                </div>
-            </div>
-        </header>
+    <header>
+        <div class="container">
+            <h1>Perfumador</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-        <section id="cart-page">
-            <div class="container">
-                <h2>Your Shopping Cart</h2>
-                <div id="cart-items">
-                </div>
-                <div id="cart-summary">
-                    <h3>Order Summary</h3>
-                    <p>Total Items: <span id="total-items">0</span></p>
-                    <p>Total Price: $<span id="total-price">0.00</span></p>
-                    <button id="checkout-btn" class="btn-primary">Proceed to Checkout</button>
-                </div>
-                <div id="empty-cart-message" style="display: none;">
-                    <p>Your cart is currently empty. <a href="products.html">Continue shopping</a>.</p>
-                </div>
+    <main class="cart-container">
+        <h2>Your Cart</h2>
+        <table id="cart-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+            </tbody>
+        </table>
+        <div id="cart-summary">
+            <h3>Order Summary</h3>
+            <p>Subtotal: <span id="subtotal">$0.00</span></p>
+            <p>Shipping: <span id="shipping">$10.00</span></p>
+            <p><strong>Total: <span id="total">$0.00</span></strong></p>
+            <div class="cart-actions">
+                <a href="products.html" class="btn-secondary">Continue Shopping</a>
+                <button class="btn-primary" id="checkout-btn">Buy Now</button>
             </div>
-        </section>
-    </div>
+        </div>
+        <p id="empty-cart-message">Your cart is empty. <a href="products.html">Shop Now</a></p>
+    </main>
 
     <footer>
-        <p>Contact us: support@perfumador.com | Follow us on 
-            <a href="#">Facebook</a>, 
-            <a href="#">Instagram</a>
-        </p>
+        <p>© 2024 Perfumador. All rights reserved.</p>
     </footer>
-    
-    <div id="transition-overlay"></div>
-    <div id="cart-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <p id="cart-message"></p>
-        </div>
-    </div>
-    
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/scripts.js"></script>
 </body>
