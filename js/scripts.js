@@ -1,3 +1,4 @@
+// Updated scripts.js with enhanced notification and fancy confirmation modal for purchase
 $(document).ready(function() {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -170,11 +171,13 @@ $(document).ready(function() {
     loadPerfumes();
     updateCartCount();
 
+    // Ensure "Cart" link works from all pages
     $(".cart-link").on("click", function(event) {
         event.preventDefault();
         window.location.href = "cart.html";
     });
 
+    // Notification and Modal styles
     $('head').append(`
         <style>
             .notification {
